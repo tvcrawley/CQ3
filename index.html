@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
+  <script src="script.js"></script>
+  <title>Challenge Question 3</title>
+</head>
+<body ng-app="app">
+
+  <!-- DIRECTIONS -->
+  <div class="container text-center">
+    <h2>Company Events (Admin)</h2>
+    <p class="lead">
+      To update data: click the appropriate checkbox in <strong> update</strong> <br />
+      To edit in bulk: click the checkbox of the desired <strong>column</strong>
+      <br />
+      <small>*Note: Resubmission of data will overwrite previous choices</small>
+    </p>
+  </div>
+
+  <div ng-controller="MainCtrl as main" class="container">
+
+    <form name="form">
+      <table class="table">
+        <!-- TABLE HEADINGS -->
+        <thead>
+          <th>
+            <span>
+              <input type="checkbox" ng-model="main.bulkTitle" />
+              Title
+            </span>
+          </th>
+          <th>
+            Topic
+          </th>
+          <th>
+            Description
+          </th>
+          <th>
+            <span>
+              <input type="checkbox" ng-model="main.bulkEventDate"/>
+              Date
+            </span>
+          </th>
+          <th>
+            <span>
+              <input type="checkbox" ng-model="main.bulkSpeaker"/>
+              Speaker
+            </span>
+          </th>
+          <th>
+            <span>
+              <input type="checkbox" ng-model="main.bulkBuildRoom"/>
+              Buliding
+            </span>
+          </th>
+          <th>
+            <span>
+              <input type="checkbox" ng-model="main.bulkBuildRoom"/>
+              Room
+            </span>
+          </th>
+          <th>
+            Update
+          </th>
+        </thead>
+        <tbody>
+          <!-- BULK SUBMIT BUTTONS -->
+          <tr>
+            <td>
+              <button type="submit" ng-click="form.$valid && main.submitTitle()"  class="btn btn-primary" ng-if="main.bulkTitle">Save</button>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+              <button type="submit" ng-click="form.$valid && main.submitEventDate()"  class="btn btn-primary" ng-if="main.bulkEventDate">Save</button>
+            </td>
+            <td>
+              <button type="submit" ng-click="form.$valid && main.submitSpeaker()"  class="btn btn-primary" ng-if="main.bulkSpeaker">Save</button>
+            </td>
+            <td>
+            </td>
+            <td>
+              <button type="submit" ng-click="form.$valid && main.submitBuildRoom()"  class="btn btn-primary" ng-if="main.bulkBuildRoom">Save</button>
+            </td>
+            <td>
+            </td>
+          </tr>
+          <!-- EVENT DISPLAY DATA-->
+          <tr  ng-repeat="event in main.eventData">
+            <!-- title -->
+            <td>
+              <input type="text" placeholder="insert new title" ng-model="main.event.title" ng-if="checked == true || main.bulkTitle == true" required/>
+              {{event.title}}
+            </td>
+            <!-- topic name -->
+            <td>
+              {{event.topic_name}}
+            </td>
+            <!-- topic description -->
+            <td>
+              {{event.topic_description}}
+            </td>
+            <!-- event date -->
+            <td>
+              <input type="date" ng-model="main.event.eventDate" ng-if="checked || main.bulkEventDate == true" required/>
+              {{event.event_date | date: "M/d/yyyy"}}
+            </td>
+            <!-- speaker -->
+            <td>
+              <select ng-model="main.event.speaker" ng-options="speaker.speaker_name for speaker in main.speakerData" ng-if="checked || main.bulkSpeaker" required>
+                <option value="">Select a speaker</option>
+              </select>
+              {{event.speaker}}
+            </td>
+            <!-- builidng name -->
+            <td>
+              <select ng-model="main.event.building" ng-options="building.building_name for building in main.buildingData" ng-if="checked || main.bulkBuildRoom" required>
+                <option value="">Select a building</option>
+              </select>
+              {{event.building}}
+            </td>
+            <!-- room name -->
+            <td>
+              <select ng-model="main.event.room" ng-if="checked || main.bulkBuildRoom" required>
+                <option value="">Select a room</option>
+                <option ng-repeat="room in main.buildRoomData" ng-if="main.event.building.building_name == room.building_name">
+                  {{room.room_name}}
+                </option>
+              </select>
+              {{event.room}}
+            </td>
+            <!-- button for specific event id -->
+            <td class="center">
+              <input type="checkbox" ng-model="checked"/>
+              <button type="submit" ng-click="form.$valid && main.submit($index)" class="btn btn-primary" ng-if="checked">Save</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <div class="container text-center">
+    <p>
+      Web Developer Challenge 3 by <a href="http://tvlangley.github.io/">Tonia Langley</a>
+    </p>
+  </div>
+</body>
+</html>

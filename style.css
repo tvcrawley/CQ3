@@ -1,0 +1,42 @@
+html, body{
+  height: 100%;
+}
+
+body{
+  background-color: #ccedf7;
+  color: #a68e6e;
+  letter-spacing: .5px;
+}
+
+form, p{
+  font-size: 18px;
+}
+
+table{
+  font-weight: 300;
+}
+
+button{
+  width: 100%;
+}
+
+h2, small{
+  color: #c8b79e;
+}
+
+p{
+  padding: 10px;
+}
+
+span{
+  display: flex;
+}
+
+input[type=checkbox]{
+  margin: 4px !important;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+}
